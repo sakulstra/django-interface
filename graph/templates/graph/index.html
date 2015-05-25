@@ -1,0 +1,37 @@
+{% extends "graph/base.html" %}
+
+{% block content %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'graph/layout.css' %}" />
+    <script type="application/javascript" src="{% static 'graph/Chart.min.js' %}"></script>
+    <script type="application/javascript">
+        Chart.defaults.global.responsive = true;
+    </script>
+    {% if graphs %}
+        {% for key, values in graphs.items %}
+            <div class="canvas_container mui-panel">
+                <canvas id="{{ key }}"></canvas>
+                <div id="{{ key }}Legend" class="legend"></div>
+            </div>
+            <script type="application/javascript">
+                var data = {
+                labels: {{ timestamps|safe }},
+                datasets: [
+                    {
+                        label: "{{ key }}",
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        data: {{ values }}
+                    }
+                ]
+            };
+                var {{ key }} = new Chart(document.getElementById("{{ key }}").getContext("2d")).Line(data);
+                document.getElementById("{{ key }}Legend").innerHTML = {{ key }}.generateLegend();
+            </script>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

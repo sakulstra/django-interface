@@ -1,0 +1,31 @@
+body{
+    background-color: beige;
+}
+.canvas_container{
+    width: 50%;
+    float:left;
+    position: relative;
+    height: 30%;
+}
+.canvas_container canvas{
+    padding: 0px 30px 0px 0px;
+}
+.legend{
+    position: absolute;
+    top:10px;
+    right:10px;
+}
+.legendIndicator{
+    width: 20px;
+    height: 20px;
+}
+.line-legend{
+    list-style-type: none;
+}
+.line-legend li span{
+    float:left;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+}
